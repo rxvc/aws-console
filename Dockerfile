@@ -41,6 +41,17 @@ RUN virtualenv /okta_venv \
             "oktaauth>=0.2" \
             "awscli>=1.15"
 
+#Install aws-iam-authenticator
+RUN curl -o aws-iam-authenticator https://amazon-eks.s3-us-west-2.amazonaws.com/1.10.3/2018-07-26/bin/linux/amd64/aws-iam-authenticator \
+	&& chmod +x ./aws-iam-authenticator \
+	&& cp ./aws-iam-authenticator /usr/local/bin/aws-iam-authenticator
+
+#Install kubectl
+RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl \
+	&& chmod +x ./kubectl \
+	&& mv ./kubectl /usr/local/bin/kubectl
+
+
 RUN mkdir /project
 WORKDIR /project
 
